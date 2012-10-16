@@ -12,9 +12,9 @@
 */
 
 (function($){
-	$.fn.ScreenSave = function(options, urls) {
+	$.fn.ScreenSave = function(options) {
 		var app = {
-			init : function(options, urls){
+			init : function(options){
 				// merge options
 				$.extend(app, options);
 				// append the screen saver
@@ -40,8 +40,9 @@
 				app.timer = setTimeout(app.show, parseInt(app.wait));
 			},
 			load : function(){
-				$.each(urls, function(index, value){
-					app.screen.append('<img src="'+value+'" />');
+				$.each(app.urls, function(index, value){
+					//console.log("Screensave adding "+app.folder+value);
+					app.screen.append('<img src="'+app.folder+value+'" />');
 				});
 				app.images = $('img', app.screen);
 			},
@@ -49,7 +50,8 @@
 				// width/height
 				app.screenw = $(window).width();
 				app.screenh = $(window).height();
-				//console.log(app.screenw + " x " + app.screenh);
+				//console.log("Screensave window "+ app.screenw + " x " + app.screenh);
+				
 				// prepare the images
 				switch(app.position){
 					case 'fill':
@@ -118,6 +120,7 @@
 				if(app.currImage < app.images.length-1) app.currImage++;
 				else app.currImage = 0;
 				// set the rolltimer
+				//console.log('Screensave showing '+app.currImage);
 				app.rollTimer = setTimeout(app.roll, parseInt(app.delay));
 			},
 			rollTimer : null,
@@ -127,12 +130,14 @@
 			screen : null,
 			screenw : 0,
 			screenh : 0,
+			
+			folder : '',
 			urls : [],
 			wait : 120,
 			delay : 20,
 			position : 'fill',
 			animation : 'no'
 		}
-		app.init(options, urls);
+		app.init(options);
 	};
 })(jQuery);

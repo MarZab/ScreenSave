@@ -15,13 +15,10 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-class modRandomImageHelper
+class modScreenSaveHelper
 {
 	static function getImages(&$params, $folder)
 	{
-		$type	= $params->get('type', 'jpg');
-
-		$files	= array();
 		$images	= array();
 
 		$dir = JPATH_BASE . '/' . $folder;
@@ -32,8 +29,8 @@ class modRandomImageHelper
 			if ($handle = opendir($dir)) {
 				while (false !== ($file = readdir($handle))) {
 					if ($file != '.' && $file != '..' && $file != 'CVS'	&& $file != 'index.html' 
-						&& !is_dir($dir . '/' . $file) && preg_match('/'.$type.'/', $file)) {
-						$images[] = $img;
+						&& !is_dir($dir . '/' . $file) && preg_match('/png|jpg/', $file)) {
+						$images[] = $file;
 					}
 				}
 			}

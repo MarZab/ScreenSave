@@ -22,8 +22,8 @@
 		<filename>mod_screensave.xml</filename>
 	</files>
 	<languages>
-		<language tag="en-GB">en-GB.mod_random_image.ini</language>
-		<language tag="en-GB">en-GB.mod_random_image.sys.ini</language>
+		<language tag="en-GB">languages/en-GB.mod_screensave.ini</language>
+		<language tag="en-GB">languages/en-GB.mod_screensave.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
@@ -58,26 +58,6 @@
 					default="5"
 					label="MOD_SCREENSAVE_FIELD_DELAY_LABEL"
 					description="MOD_SCREENSAVE_FIELD_DELAY_DESC" />
-			</fieldset>
-			<fieldset name="advanced">
-				<field
-					name="layout"
-					type="modulelayout"
-					label="JFIELD_ALT_LAYOUT_LABEL"
-					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
-				<field
-					name="moduleclass_sfx"
-					type="text"
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-				<field
-					name="cache"
-					type="list"
-					default="0"
-					label="COM_MODULES_FIELD_CACHING_LABEL"
-					description="COM_MODULES_FIELD_CACHING_DESC">
-					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
-				</field>
 			</fieldset>
 		</fields>
 	</config>

@@ -18,8 +18,8 @@ defined('_JEXEC') or die('Restricted access');
 // Include the syndicate functions only once
 require_once dirname(__FILE__).'/helper.php';
 
-$folder	= modScreensaveHelper::getFolder($params);
-$images	= modScreensaveHelper::getImages($params, $folder);
+$folder	= modScreenSaveHelper::getFolder($params);
+$images	= modScreenSaveHelper::getImages($params, $folder);
 
 if (!count($images)) {
 	echo JText::_('MOD_RANDOM_IMAGE_NO_IMAGES');
@@ -27,13 +27,17 @@ if (!count($images)) {
 }
 
 $settings = array(
-	'delay' => $params->get('delay', 20),
+	'folder' =>	JURI::base().str_replace('\\', '/', $folder),
+	'urls' => $images,
 	'wait' => $params->get('wait', 120),
-	'folder' => $folder,
+	'delay' => $params->get('delay', 20),
 	'position' => $params->get('position', 'fill'),
 	'animation' => $params->get('animation', 'no')
 );
 
 JHtml::_('jquery.framework');
-JHTML::script("jquery.screensave.js", "modules/mod_screensave/js/jquery.screensave.js", false);
+
+$document = JFactory::getDocument();
+$document->addScript("modules/mod_screensave/tmpl/js/jquery.screensave.js");
+
 require JModuleHelper::getLayoutPath('mod_screensave');

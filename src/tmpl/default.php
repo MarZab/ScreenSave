@@ -15,11 +15,10 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-$root = JURI::root();
-JHTML::_('stylesheet', 'screensave.css', $root.'modules/mod_screensave/tmpl/css/');
+$document->addStyleSheet('modules/mod_screensave/tmpl/css/screensave.css');
 ?>
 <script type="text/javascript">
 	jQuery(document).ready(function($) { 
-		$("body").ScreenSave('<?php echo json_encode($settings); ?>','["<?php echo implode('","', $images); ?>"]'); 
+		$("body").ScreenSave(<?php echo json_encode($settings); ?>); 
 	});
 </script>
