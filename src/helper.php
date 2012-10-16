@@ -31,29 +31,13 @@ class modRandomImageHelper
 		{
 			if ($handle = opendir($dir)) {
 				while (false !== ($file = readdir($handle))) {
-					if ($file != '.' && $file != '..' && $file != 'CVS' && $file != 'index.html') {
-						$files[] = $file;
+					if ($file != '.' && $file != '..' && $file != 'CVS'	&& $file != 'index.html' 
+						&& !is_dir($dir . '/' . $file) && preg_match('/'.$type.'/', $file)) {
+						$images[] = $img;
 					}
 				}
 			}
 			closedir($handle);
-
-			$i = 0;
-			foreach ($files as $img)
-			{
-				if (!is_dir($dir . '/' . $img))
-				{
-					if (preg_match('/'.$type.'/', $img)) {
-						$images[$i] = new stdClass;
-
-						$images[$i]->name	= $img;
-						$images[$i]->folder	= $folder;
-						$images[$i]->size	= getimagesize(JPATH_BASE . '/' . $images[$i]->folder . '/' . $images[$i]->name);
-						$images[$i]->folder	= str_replace('\\', '/', $images[$i]->folder);
-						$i++;
-					}
-				}
-			}
 		}
 
 		return $images;

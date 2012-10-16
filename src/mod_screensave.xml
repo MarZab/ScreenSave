@@ -35,11 +35,17 @@
 					label="MOD_SCREENSAVE_FIELD_FOLDER_LABEL"
 					description="MOD_SCREENSAVE_FIELD_FOLDER_DESC" />
 				<field
-					name="opacity"
+					name="position"
 					type="text"
-					default="100"
-					label="MOD_SCREENSAVE_FIELD_OPACITY_LABEL"
-					description="MOD_SCREENSAVE_FIELD_OPACITY_DESC" />
+					default="fill"
+					label="MOD_SCREENSAVE_FIELD_POSITION_LABEL"
+					description="MOD_SCREENSAVE_FIELD_POSITION_DESC" />
+				<field
+					name="animation"
+					type="text"
+					default="no"
+					label="MOD_SCREENSAVE_FIELD_ANIMATION_LABEL"
+					description="MOD_SCREENSAVE_FIELD_ANIMATION_DESC" />
 				<field
 					name="wait"
 					type="text"

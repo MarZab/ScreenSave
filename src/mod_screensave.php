@@ -26,18 +26,14 @@ if (!count($images)) {
 	return;
 }
 
-$opacity = $params->get('opacity', 100);
-$delay = $params->get('delay', 5);
-$wait = $params->get('wait', 5);
+$settings = array(
+	'delay' => $params->get('delay', 20),
+	'wait' => $params->get('wait', 120),
+	'folder' => $folder,
+	'position' => $params->get('position', 'fill'),
+	'animation' => $params->get('animation', 'no')
+);
 
-if ( !is_numeric($opacity) || $opacity<0 || $opacity > 100 )
-	$opacity = 100;
-
-if ( !is_numeric($delay) || $delay<0 )
-	$delay = 0;
-
-if ( !is_numeric($wait) || $wait<0 )
-	$wait = 100; 
-
-JHTML::script("rot.js", "modules/mod_screensave/js/screensave.js", false);
+JHtml::_('jquery.framework');
+JHTML::script("jquery.screensave.js", "modules/mod_screensave/js/jquery.screensave.js", false);
 require JModuleHelper::getLayoutPath('mod_screensave');

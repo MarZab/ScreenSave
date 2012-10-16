@@ -1,0 +1,26 @@
+.screensave{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #000;
+	z-index: 9999 !important;
+	display: none;
+}
+.screensave img{
+	display: none;
+}
+.screensave img.fill{
+	width: 100%;
+	height: 100%;
+}
+.screensave img.width, .screensave img.height{
+	position: absolute;
+}
+.screensave img.width{
+	width: 100%;
+}
+.screensave img.height{
+	height: 100%;
+}

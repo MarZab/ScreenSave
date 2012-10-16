@@ -14,15 +14,12 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+
+$root = JURI::root();
+JHTML::_('stylesheet', 'screensave.css', $root.'modules/mod_screensave/tmpl/css/');
 ?>
-<script language="JavaScript">
-	var screensaver;
-	window.addEvent('domready', function(){
-		screensaver = new ScreenSave({
-			images: JSON.decode('<?php echo json_encode($images); ?>'),
-			wait: <?php echo $wait; ?>,
-			delay: <?php echo $delay; ?>,
-			opacity: <?php echo $opacity/100; ?>,
-		});
+<script type="text/javascript">
+	jQuery(document).ready(function($) { 
+		$("body").ScreenSave('<?php echo json_encode($settings); ?>','["<?php echo implode('","', $images); ?>"]'); 
 	});
 </script>
