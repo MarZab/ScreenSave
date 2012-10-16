@@ -1,20 +1,28 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  mod_random_image
+ * @Author		Marko Zabreznik
+ * @copyright	Marko Zabreznik
+ * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
 
-defined('_JEXEC') or die;
+// no direct access
+defined('_JEXEC') or die('Restricted access');
 ?>
-<div class="random-image<?php echo $moduleclass_sfx ?>">
-<?php if ($link) : ?>
-<a href="<?php echo $link; ?>">
-<?php endif; ?>
-	<?php echo JHtml::_('image', $image->folder.'/'.$image->name, $image->name, array('width' => $image->width, 'height' => $image->height)); ?>
-<?php if ($link) : ?>
-</a>
-<?php endif; ?>
-</div>
+<script language="JavaScript">
+	var screensaver;
+	window.addEvent('domready', function(){
+		screensaver = new ScreenSave({
+			images: JSON.decode('<?php echo json_encode($images); ?>'),
+			wait: <?php echo $wait; ?>,
+			delay: <?php echo $delay; ?>,
+			opacity: <?php echo $opacity/100; ?>,
+		});
+	});
+</script>

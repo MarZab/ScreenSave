@@ -1,27 +1,43 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  mod_random_image
+ * @Author		Marko Zabreznik
+ * @copyright	Marko Zabreznik
+ * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
 
-defined('_JEXEC') or die;
+// no direct access
+defined('_JEXEC') or die('Restricted access');
 
 // Include the syndicate functions only once
-require_once __DIR__ . '/helper.php';
+require_once dirname(__FILE__).'/helper.php';
 
-$link	= $params->get('link');
-
-$folder	= modRandomImageHelper::getFolder($params);
-$images	= modRandomImageHelper::getImages($params, $folder);
+$folder	= modScreensaveHelper::getFolder($params);
+$images	= modScreensaveHelper::getImages($params, $folder);
 
 if (!count($images)) {
 	echo JText::_('MOD_RANDOM_IMAGE_NO_IMAGES');
 	return;
 }
 
-$image = modRandomImageHelper::getRandomImage($params, $images);
-$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
-require JModuleHelper::getLayoutPath('mod_random_image', $params->get('layout', 'default'));
+$opacity = $params->get('opacity', 100);
+$delay = $params->get('delay', 5);
+$wait = $params->get('wait', 5);
+
+if ( !is_numeric($opacity) || $opacity<0 || $opacity > 100 )
+	$opacity = 100;
+
+if ( !is_numeric($delay) || $delay<0 )
+	$delay = 0;
+
+if ( !is_numeric($wait) || $wait<0 )
+	$wait = 100; 
+
+JHTML::script("rot.js", "modules/mod_screensave/js/screensave.js", false);
+require JModuleHelper::getLayoutPath('mod_screensave');

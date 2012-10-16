@@ -1,63 +1,25 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  mod_random_image
+ * @Author		Marko Zabreznik
+ * @copyright	Marko Zabreznik
+ * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
  *
- * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+*/
 
-defined('_JEXEC') or die;
+// no direct access
+defined('_JEXEC') or die('Restricted access');
 
-/**
- * Helper for mod_random_image
- *
- * @package     Joomla.Site
- * @subpackage  mod_random_image
- * @since       1.5
- */
 class modRandomImageHelper
 {
-	public static function getRandomImage(&$params, $images)
+	static function getImages(&$params, $folder)
 	{
-		$width	= $params->get('width');
-		$height	= $params->get('height');
-
-		$i      = count($images);
-		$random = mt_rand(0, $i - 1);
-		$image  = $images[$random];
-		$size   = getimagesize(JPATH_BASE . '/' . $image->folder . '/' . $image->name);
-
-		if ($width == '') {
-			$width = 100;
-		}
-
-		if ($size[0] < $width) {
-			$width = $size[0];
-		}
-
-		$coeff = $size[0] / $size[1];
-		if ($height == '') {
-			$height = (int) ($width / $coeff);
-		} else {
-			$newheight = min($height, (int) ($width / $coeff));
-			if ($newheight < $height) {
-				$height = $newheight;
-			} else {
-				$width = $height * $coeff;
-			}
-		}
-
-		$image->width	= $width;
-		$image->height	= $height;
-		$image->folder	= str_replace('\\', '/', $image->folder);
-
-		return $image;
-	}
-
-	public static function getImages(&$params, $folder)
-	{
-		$type		= $params->get('type', 'jpg');
+		$type	= $params->get('type', 'jpg');
 
 		$files	= array();
 		$images	= array();
@@ -86,6 +48,8 @@ class modRandomImageHelper
 
 						$images[$i]->name	= $img;
 						$images[$i]->folder	= $folder;
+						$images[$i]->size	= getimagesize(JPATH_BASE . '/' . $images[$i]->folder . '/' . $images[$i]->name);
+						$images[$i]->folder	= str_replace('\\', '/', $images[$i]->folder);
 						$i++;
 					}
 				}
@@ -94,7 +58,7 @@ class modRandomImageHelper
 
 		return $images;
 	}
-
+	
 	public static function getFolder(&$params)
 	{
 		$folder	= $params->get('folder');
