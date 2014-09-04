@@ -35,7 +35,18 @@ $settings = array(
 	'animation' => $params->get('animation', 'no')
 );
 
-JHtml::_('jquery.framework');
+// 2.5 compatibility
+JLoader::import( 'joomla.version' );
+$version = new JVersion();
+if (version_compare( $version->RELEASE, '2.5', '<=')) {
+    if (JFactory::getApplication()->get('jquery') !== true) {
+        $document = JFactory::getDocument();
+        $document->addScript("http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js");
+        JFactory::getApplication()->set('jquery', true);
+   }
+} else {
+    JHtml::_('jquery.framework');
+}
 
 $document = JFactory::getDocument();
 $document->addScript("modules/mod_screensave/tmpl/js/jquery.screensave.js");
